@@ -92,7 +92,13 @@ void loop()
     // The data transmitted are the sensor measurements.
     Serial.println("Sending sensor data to the server.");
 
-    uint8_t data[] = "Hello World!";
+    // Load data.
+    // Load data from the temperature sensor.
+    temperature_sensors.requestTemperatures();
+    celsius_temperature = (int) temperature_sensors.getTempCByIndex(0);
+
+    // Pack the data into an array of eight-bit integers.
+    uint8_t data[] = {celsius_temperature};
     nrf24.send(data, sizeof(data));
 
     nrf24.waitPacketSent();
