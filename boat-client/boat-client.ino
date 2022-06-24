@@ -51,8 +51,10 @@ void setup()
 {
     Serial.begin(9600);
 
+    // Wait for the serial monitor to load.
     while (!Serial);
 
+    // Connect to the transceiver.
     if (!nrf24.init())
         Serial.println("`init` failed");
     if (!nrf24.setChannel(TRANSCEIVER_CHANNEL))
@@ -60,8 +62,8 @@ void setup()
     if (!nrf24.setRF(RH_NRF24::DataRate2Mbps, RH_NRF24::TransmitPower0dBm))
         Serial.println("`setRF` failed");
 
+    // Connect to the motors and run them.
     AFMS.begin();
-
     set_motors();
 }
 
