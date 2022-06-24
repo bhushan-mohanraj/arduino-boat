@@ -20,6 +20,9 @@
 // The digital pin for the temperature sensor.
 #define TEMPERATURE_ONE_WIRE_PIN 2
 
+// Set up the pH sensor.
+#define PH_SENSOR_PIN A1
+
 
 // Initialize the transceiver.
 // Create an object to interact with the transceiver.
@@ -46,6 +49,11 @@ OneWire oneWire(TEMPERATURE_ONE_WIRE_PIN);
 DallasTemperature temperature_sensors(&oneWire);
 
 int celsius_temperature = 0;
+
+// Initialize the pH sensor.
+int ph_value = 0;
+float ph_float_value = 0;
+float ph_voltage = 0;
 
 
 // Set the motor speeds and directions according to the variable values.
@@ -85,6 +93,9 @@ void setup()
 
     // Connect to the temperature sensor.
     temperature_sensors.begin();
+
+    // Connect to the pH sensor.
+    pinMode(PH_SENSOR_PIN, INPUT);
 }
 
 
