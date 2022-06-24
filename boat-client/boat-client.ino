@@ -7,10 +7,18 @@
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 
+// Libraries for the temperature sensor.
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
 
 // Set up the transceiver.
 // The channel number for the transceiver.
 #define TRANSCEIVER_CHANNEL 144
+
+// Set up the temperature sensor.
+// The digital pin for the temperature sensor.
+#define TEMPERATURE_ONE_WIRE_PIN 2
 
 
 // Initialize the transceiver.
@@ -31,6 +39,13 @@ int motor_2_speed = 0;
 
 bool is_motor_1_forward = true;
 bool is_motor_2_forward = true;
+
+// Initialize the temperature sensor.
+// Create objects to interact with the temperature sensor.
+OneWire oneWire(TEMPERATURE_ONE_WIRE_PIN);
+DallasTemperature temperature_sensors(&oneWire);
+
+int celsius_temperature = 0;
 
 
 // Set the motor speeds and directions according to the variable values.
@@ -65,6 +80,9 @@ void setup()
     // Connect to the motors and run them.
     AFMS.begin();
     set_motors();
+
+    // Connect to the temperature sensor.
+    temperature_sensors.begin();
 }
 
 
