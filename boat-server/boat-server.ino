@@ -4,11 +4,11 @@
 RH_NRF24 nrf24;
 
 // The values from the joysticks along the horizontal axis.
-int x_1 = 512;
-int x_2 = 512;
+int joystick_1_x = 512;
+int joystick_2_x = 512;
 
-int x_mapped_1 = 128;
-int x_mapped_2 = 128;
+int joystick_1_x_mapped = 128;
+int joystick_2_x_mapped = 128;
 
 void setup()
 {
@@ -37,15 +37,15 @@ void loop()
             Serial.print("Got a request. ");
             Serial.println((char*) buf);
 
-            x_1 = analogRead(A0);
-            x_2 = analogRead(A1);
+            joystick_1_x = analogRead(A0);
+            joystick_2_x = analogRead(A1);
 
             // Map the `x` values to numbers within the range
             // that can be sent as eight-bit integers (ASCII characters).
-            x_mapped_1 = map(x_1, 0, 1023, 0, 255);
-            x_mapped_2 = map(x_2, 0, 1023, 0, 255);
+            joystick_1_x_mapped = map(joystick_1_x, 0, 1023, 0, 255);
+            joystick_2_x_mapped = map(joystick_2_x, 0, 1023, 0, 255);
 
-            uint8_t data[] = {x_mapped_1, x_mapped_2};
+            uint8_t data[] = {joystick_1_x_mapped, joystick_2_x_mapped};
 
             nrf24.send(data, sizeof(data));
             nrf24.waitPacketSent();
