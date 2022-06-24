@@ -49,7 +49,7 @@ void set_motors()
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
 
     // Wait for the serial monitor to load.
     while (!Serial);
