@@ -1,15 +1,22 @@
+// Libraries for the transceiver.
 #include <SPI.h>
 #include <RH_NRF24.h>
 
+// Libraries for the motors.
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 
-Adafruit_MotorShield AFMS = Adafruit_MotorShield();
-Adafruit_DCMotor *motor_1 = AFMS.getMotor(3);
-Adafruit_DCMotor *motor_2 = AFMS.getMotor(4);
 
+// Initialize the transceiver.
+// Create an object to interact with the transceiver.
 RH_NRF24 nrf24;
+
+// Initialize the motors.
+// Create objects to interact with the motors.
+Adafruit_MotorShield AFMS = Adafruit_MotorShield();
+Adafruit_DCMotor *motor_1 = AFMS.getMotor(1);
+Adafruit_DCMotor *motor_2 = AFMS.getMotor(2);
 
 int joystick_1_x_mapped = 512;
 int joystick_2_x_mapped = 512;
@@ -19,6 +26,7 @@ int motor_2_speed = 0;
 
 bool is_motor_1_forward = true;
 bool is_motor_2_forward = true;
+
 
 void set_motors()
 {
@@ -31,6 +39,7 @@ void set_motors()
     if (is_motor_2_forward) motor_2->run(FORWARD);
     else motor_2->run(BACKWARD);
 }
+
 
 void setup()
 {
@@ -47,6 +56,7 @@ void setup()
 
     set_motors();
 }
+
 
 void loop()
 {

@@ -1,14 +1,20 @@
+// Libraries for the transceiver.
 #include <SPI.h>
 #include <RH_NRF24.h>
 
+
+// Initialize the transceiver.
+// Create an object to interact with the transceiver.
 RH_NRF24 nrf24;
 
-// The values from the joysticks along the horizontal axis.
+// Initialize the joysticks.
+// Create objects to interact with the joysticks.
 int joystick_1_x = 512;
 int joystick_2_x = 512;
 
 int joystick_1_x_mapped = 128;
 int joystick_2_x_mapped = 128;
+
 
 void setup()
 {
@@ -24,6 +30,7 @@ void setup()
     pinMode(A0, INPUT);
     pinMode(A1, INPUT);
 }
+
 
 void loop()
 {
