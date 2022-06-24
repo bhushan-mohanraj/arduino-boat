@@ -88,5 +88,5 @@ void loop()
         Serial.println("No reply from the server.");
     }
 
-    delay(100);
+    delay(400);
 }
