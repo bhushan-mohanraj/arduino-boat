@@ -33,6 +33,7 @@ bool is_motor_1_forward = true;
 bool is_motor_2_forward = true;
 
 
+// Set the motor speeds and directions according to the variable values.
 void set_motors()
 {
     motor_1->setSpeed(motor_1_speed);
