@@ -88,7 +88,9 @@ void setup()
 
 void loop()
 {
-    Serial.println("Sending to nrf24_server");
+    // Transmit data to the server.
+    // The data transmitted are the sensor measurements.
+    Serial.println("Sending sensor data to the server.");
 
     uint8_t data[] = "Hello World!";
     nrf24.send(data, sizeof(data));
