@@ -11,24 +11,24 @@ Adafruit_DCMotor *motor_2 = AFMS.getMotor(4);
 
 RH_NRF24 nrf24;
 
-int x_mapped_1 = 512;
-int x_mapped_2 = 512;
+int joystick_1_x_mapped = 512;
+int joystick_2_x_mapped = 512;
 
-int x_speed_1 = 0;
-int x_speed_2 = 0;
+int motor_1_speed = 0;
+int motor_2_speed = 0;
 
-bool forward_1 = true;
-bool forward_2 = true;
+bool is_motor_1_forward = true;
+bool is_motor_2_forward = true;
 
 void set_motors()
 {
-    motor_1->setSpeed(x_speed_1);
-    motor_2->setSpeed(x_speed_2);
+    motor_1->setSpeed(motor_1_speed);
+    motor_2->setSpeed(motor_2_speed);
 
-    if (forward_1) motor_1->run(FORWARD);
+    if (is_motor_1_forward) motor_1->run(FORWARD);
     else motor_1->run(BACKWARD);
 
-    if (forward_2) motor_2->run(FORWARD);
+    if (is_motor_2_forward) motor_2->run(FORWARD);
     else motor_2->run(BACKWARD);
 }
 
@@ -67,14 +67,14 @@ void loop()
             Serial.print("Got a reply. ");
             Serial.println((char*) buf);
 
-            x_mapped_1 = (int) buf[0];
-            x_mapped_2 = (int) buf[1];
+            joystick_1_x_mapped = (int) buf[0];
+            joystick_2_x_mapped = (int) buf[1];
 
-            forward_1 = x_1 >= 128;
-            forward_2 = x_2 >= 128;
+            is_motor_1_forward = joystick_1_x_mapped >= 128;
+            is_motor_2_forward = joystick_2_x_mapped >= 128;
 
-            x_speed_1 = map(abs(x_1 - 128), 0, 128, 0, 255);
-            x_speed_2 = map(abs(x_2 - 128), 0, 128, 0, 255);
+            motor_1_speed = map(abs(joystick_1_x_mapped - 128), 0, 128, 0, 255);
+            motor_2_speed = map(abs(joystick_2_x_mapped - 128), 0, 128, 0, 255);
 
             set_motors();
         }
